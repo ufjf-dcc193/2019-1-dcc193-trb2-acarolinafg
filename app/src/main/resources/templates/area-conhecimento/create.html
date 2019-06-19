@@ -61,8 +61,33 @@
             </ul>
 
             <div id="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a th:href="@{/area-conhecimento}">Área de Conhecimento</a>
+                        </li>
+                        <li class="breadcrumb-item active">Criar</li>
+                    </ol>
 
-
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-plus"></i> Nova Área de Conhecimento
+                        </div>
+                        <form th:action="@{/area-conhecimento/store}" th:object="${areaConhecimento}" method="post">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" class="form-control" th:field="*{nome}" required=""/>
+                                </div>    
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-dark" th:href="@{/area-conhecimento}"><i class="fas fa-chevron-left"></i> Voltar</a>
+                                <button class="btn btn-primary" type="submit">Salvar</button>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
                 <!-- Sticky Footer -->
                 <footer class="sticky-footer">
                     <div class="container my-auto">

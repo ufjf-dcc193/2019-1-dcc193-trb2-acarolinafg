@@ -50,7 +50,7 @@ public class AreaConhecimentoController {
         return "area-conhecimento/edit";
     }
 
-    @RequestMapping("/area-conhecimento/update/{id}")
+    @RequestMapping("/area-conhecimento/update")
     public String update(AreaConhecimento areaConhecimento) {
         service.save(areaConhecimento);
         return "redirect:/area-conhecimento";
