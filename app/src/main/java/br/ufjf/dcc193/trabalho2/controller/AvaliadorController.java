@@ -56,7 +56,7 @@ public class AvaliadorController {
         return "avaliador/edit";
     }
 
-    @RequestMapping("/avaliador/update/{id}")
+    @RequestMapping("/avaliador/update")
     public String update(Avaliador avaliador) {
         service.save(avaliador);
         return "redirect:/avaliador";

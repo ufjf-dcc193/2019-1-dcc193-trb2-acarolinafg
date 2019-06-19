@@ -55,7 +55,7 @@ public class TrabalhoController {
         return "trabalho/edit";
     }
 
-    @RequestMapping("/trabalho/update/{id}")
+    @RequestMapping("/trabalho/update")
     public String update(Trabalho trabalho) {
         service.save(trabalho);
         return "redirect:/trabalho";

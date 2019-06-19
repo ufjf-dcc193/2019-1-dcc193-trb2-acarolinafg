@@ -7,7 +7,7 @@
         <meta name="description" content="Trabalho 2 - Gestão e avaliação de pesquisas"/>
         <meta name="author" content="Ana Carolina Fidelis Gonçalves"/>
 
-        <title>Trabalho 2 | Home</title>
+        <title>Trabalho 2 | Trabalho</title>
 
         <!-- Custom fonts for this template-->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css"/>
@@ -61,7 +61,46 @@
             </ul>
 
             <div id="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">Trabalho</li>
+                    </ol>
 
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-biohazard"></i> Trabalho
+                        </div>
+                        <div class="card-body">
+                            <a class="btn btn-success mb-3" th:href="@{/trabalho/create}"><i class="fas fa-plus"></i> Novo Trabalho</a>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="tbTrabalho" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>TÍTULO</th>
+                                            <th>ÁREA DE CONHECIMENTO</th>
+                                            <th>URL</th>
+                                            <th>AÇÕES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="trabalho: ${trabalho}">
+                                            <td th:text="${trabalho.titulo}"></td>
+                                            <td th:text="${trabalho.areaConhecimento.nome}"></td>
+                                            <td th:text="${trabalho.url}"></td>
+                                            <td class="text-center">
+                                                <div class="btn-group">
+                                                    <a th:href="@{'/trabalho/edit/' + ${trabalho.id}}" class="btn btn-sm btn-primary">Editar</a>
+                                                    <a  th:href="@{'/trabalho/delete/' + ${trabalho.id}}" class="delete btn btn-sm btn-danger">Excluir</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Sticky Footer -->
                 <footer class="sticky-footer">

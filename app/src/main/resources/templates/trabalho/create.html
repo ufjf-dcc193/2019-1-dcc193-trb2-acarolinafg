@@ -7,7 +7,7 @@
         <meta name="description" content="Trabalho 2 - Gestão e avaliação de pesquisas"/>
         <meta name="author" content="Ana Carolina Fidelis Gonçalves"/>
 
-        <title>Trabalho 2 | Home</title>
+        <title>Trabalho 2 | Novo Trabalho</title>
 
         <!-- Custom fonts for this template-->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css"/>
@@ -61,8 +61,54 @@
             </ul>
 
             <div id="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a th:href="@{/trabalho}">Trabalho</a>
+                        </li>
+                        <li class="breadcrumb-item active">Criar</li>
+                    </ol>
 
-
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-plus"></i> Trabalho 
+                        </div>
+                        <form th:action="@{/trabalho/store}" th:object="${trabalho}" method="post">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="titulo">Título</label>
+                                    <input type="text" class="form-control" th:field="*{titulo}" required=""/>
+                                </div> 
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="url">URL</label>
+                                            <input type="text" class="form-control" th:field="*{url}"/>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="areaConhecimento">Área de Conhecimento</label>
+                                            <select class="form-control" th:field="*{areaConhecimento}" required="">
+                                                <option value="">Selecione</option>
+                                                <option th:each="areaConhecimento: ${areaConhecimentoList}" th:value="${areaConhecimento.id}" th:text="${areaConhecimento.nome}"></option>
+                                            </select>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="decricao">Descrição</label>
+                                    <textarea class="form-control" rows="10" th:field="*{descricao}"></textarea>
+                                </div>   
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-dark" th:href="@{/trabalho}"><i class="fas fa-chevron-left"></i> Voltar</a>
+                                <button class="btn btn-primary" type="submit">Salvar</button>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
                 <!-- Sticky Footer -->
                 <footer class="sticky-footer">
                     <div class="container my-auto">
