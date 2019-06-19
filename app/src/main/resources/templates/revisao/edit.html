@@ -7,7 +7,7 @@
         <meta name="description" content="Trabalho 2 - Gestão e avaliação de pesquisas"/>
         <meta name="author" content="Ana Carolina Fidelis Gonçalves"/>
 
-        <title>Trabalho 2 | Avaliador</title>
+        <title>Trabalho 2 | Editar Revisão</title>
 
         <!-- Custom fonts for this template-->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css"/>
@@ -64,49 +64,66 @@
                 <div class="container-fluid">
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active">Avaliador</li>
+                        <li class="breadcrumb-item active">Revisão</li>
                     </ol>
 
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fas fa-user"></i> Avaliador
+                            <i class="fas fa-edit"></i> Editar Revisão
                         </div>
-                        <div class="card-body">
-                            <a class="btn btn-success mb-3" th:href="@{/avaliador/create}"><i class="fas fa-plus"></i> Novo Avaliador</a>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="tbAvaliador" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>NOME</th>
-                                            <th>EMAIL</th>
-                                            <th>ÁREA DE CONHECIMENTO</th>
-                                            <th>AÇÕES</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="avaliador: ${avaliador}">
-                                            <td th:text="${avaliador.nome}"></td>
-                                            <td th:text="${avaliador.email}"></td>
-                                            <td>
-                                                <div th:each="areaConhecimento: ${avaliador.areaConhecimento}">
-                                                    <span class="badge badge-warning"  th:text="${areaConhecimento.nome}"></span>
-                                                </div>
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="btn-group">
-                                                    <a th:href="@{'/avaliador/edit/' + ${avaliador.id}}" class="btn btn-sm btn-primary">Editar</a>
-                                                    <a  th:href="@{'/avaliador/delete/' + ${avaliador.id}}" class="delete btn btn-sm btn-danger">Excluir</a>
-                                                    <a  th:href="@{'/avaliador/revisoes/' + ${avaliador.id}}" class="delete btn btn-sm btn-success">Revisões</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <form th:action="@{/revisao/update}" th:object="${revisao}" method="post">
+                            <div class="card-body">
+                                <input type="hidden" th:field="*{id}"/>
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="nota">Nota</label>
+                                            <input type="number" class="form-control" th:field="*{nota}"/>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="trabalho">Trabalho</label>
+                                            <select class="form-control" th:field="*{trabalho}" required="">
+                                                <option value="">Selecione</option>
+                                                <option th:each="trabalho: ${trabalho}" th:value="${trabalho.id}" th:text="${trabalho.titulo}"></option>
+                                            </select>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="avaliador">Avaliador</label>
+                                            <select class="form-control" th:field="*{avaliador}" required="">
+                                                <option value="">Selecione</option>
+                                                <option th:each="avaliador: ${avaliador}" th:value="${avaliador.id}" th:text="${avaliador.nome}"></option>
+                                            </select>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="status">Status</label>
+                                            <select class="form-control" th:field="*{status}" required="">
+                                                <option value="0">A fazer</option>
+                                                <option value="1">Avaliado</option>
+                                                <option value="2">Impedido</option>
+                                                <option value="3">Validado</option>
+                                                <option value="4">Invalidado</option>
+                                            </select>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Descrição</label>
+                                    <textarea class="form-control" rows="5" th:field="*{descricao}"></textarea>
+                                </div>
                             </div>
-                        </div>
+                            <div class="card-footer">
+                                <a class="btn btn-dark" th:href="@{/revisao}"><i class="fas fa-chevron-left"></i> Voltar</a>
+                                <button class="btn btn-primary" type="submit">Salvar</button>
+                            </div> 
+                        </form>
                     </div>
                 </div>
-
                 <!-- Sticky Footer -->
                 <footer class="sticky-footer">
                     <div class="container my-auto">
