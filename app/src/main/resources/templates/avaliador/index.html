@@ -7,7 +7,7 @@
         <meta name="description" content="Trabalho 2 - Gestão e avaliação de pesquisas"/>
         <meta name="author" content="Ana Carolina Fidelis Gonçalves"/>
 
-        <title>Trabalho 2 | Home</title>
+        <title>Trabalho 2 | Avaliador</title>
 
         <!-- Custom fonts for this template-->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css"/>
@@ -61,7 +61,49 @@
             </ul>
 
             <div id="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">Avaliador</li>
+                    </ol>
 
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-user"></i> Avaliador
+                        </div>
+                        <div class="card-body">
+                            <a class="btn btn-success mb-3" th:href="@{/avaliador/create}"><i class="fas fa-plus"></i> Novo Avaliador</a>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="tbAvaliador" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>NOME</th>
+                                            <th>EMAIL</th>
+                                            <th>ÁREA DE CONHECIMENTO</th>
+                                            <th>AÇÕES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="avaliador: ${avaliador}">
+                                            <td th:text="${avaliador.nome}"></td>
+                                            <td th:text="${avaliador.email}"></td>
+                                            <td>
+                                                <span class="badge badge-warning" th:each="areaConhecimento: ${areaConhecimento}" th:text="${areaConhecimento.nome}"></span>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="btn-group">
+                                                    <a th:href="@{'/avaliador/edit/' + ${avaliador.id}}" class="btn btn-sm btn-primary">Editar</a>
+                                                    <a  th:href="@{'/avaliador/delete/' + ${avaliador.id}}" class="delete btn btn-sm btn-danger">Excluir</a>
+                                                    <a  th:href="@{'/avaliador/revisoes/' + ${avaliador.id}}" class="delete btn btn-sm btn-success">Revisões</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Sticky Footer -->
                 <footer class="sticky-footer">

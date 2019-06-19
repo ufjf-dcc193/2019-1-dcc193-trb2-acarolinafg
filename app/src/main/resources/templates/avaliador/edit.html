@@ -7,7 +7,7 @@
         <meta name="description" content="Trabalho 2 - Gestão e avaliação de pesquisas"/>
         <meta name="author" content="Ana Carolina Fidelis Gonçalves"/>
 
-        <title>Trabalho 2 | Home</title>
+        <title>Trabalho 2 | Editar Avalidor</title>
 
         <!-- Custom fonts for this template-->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css"/>
@@ -61,7 +61,59 @@
             </ul>
 
             <div id="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a th:href="@{/avaliador}">Avaliador</a>
+                        </li>
+                        <li class="breadcrumb-item active">Editar</li>
+                    </ol>
 
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-plus"></i> Avaliador 
+                        </div>
+                        <form th:action="@{/avaliador/update}" th:object="${avaliador}" method="post">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input type="hidden" th:field="*{id}"/>
+                                    <label for="nome">Nome</label>
+                                    <input type="text" class="form-control" th:field="*{nome}" required=""/>
+                                </div> 
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" th:field="*{email}" required=""/>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="senha">Senha</label>
+                                            <input type="password" class="form-control" th:field="*{senha}" required=""/>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Áreas de Conhecimento</label>
+                                    <div class="form-check">
+                                        <div class="row">
+                                            <div class="col-4" th:each="areaConhecimento: ${areaConhecimentoList}" th:object=${AreaConhecimento}>
+                                                <input class="form-check-input" type="checkbox" th:id="'defaultCheck'+${areaConhecimento.id}" th:value="${areaConhecimento.id}" name="areaConhecimento">
+                                                    <label class="form-check-label" th:for="'defaultCheck'+${areaConhecimento.id}" th:text="${areaConhecimento.nome}"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-dark" th:href="@{/avaliador}"><i class="fas fa-chevron-left"></i> Voltar</a>
+                                <button class="btn btn-primary" type="submit">Salvar</button>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
 
                 <!-- Sticky Footer -->
                 <footer class="sticky-footer">
