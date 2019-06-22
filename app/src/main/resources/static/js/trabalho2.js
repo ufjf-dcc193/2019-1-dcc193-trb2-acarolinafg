@@ -25,7 +25,7 @@ $(document).ready(function () {
             {"orderable": false, className: "text-center"},
         ]
     });
-    $('#tbTrabalho, #tbAvaliador').DataTable({
+    $('#tbAvaliadorRevisoes, #tbTrabalho, #tbAvaliador').DataTable({
         "language": {
             "search": "Buscar:",
             "lengthMenu": "Exibir _MENU_ registros por página",

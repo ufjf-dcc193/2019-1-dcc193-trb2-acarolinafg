@@ -12,8 +12,11 @@
 package br.ufjf.dcc193.trabalho2.controller;
 
 import br.ufjf.dcc193.trabalho2.model.Avaliador;
+import br.ufjf.dcc193.trabalho2.model.Revisao;
+import br.ufjf.dcc193.trabalho2.repository.RevisaoRepository;
 import br.ufjf.dcc193.trabalho2.service.AreaConhecimentoService;
 import br.ufjf.dcc193.trabalho2.service.AvaliadorService;
+import br.ufjf.dcc193.trabalho2.service.RevisaoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +32,12 @@ public class AvaliadorController {
 
     @Autowired
     private AreaConhecimentoService areaConhecimentoService;
+
+    @Autowired
+    private RevisaoRepository revisaoRepository;
+
+    @Autowired
+    private RevisaoService revisaoService;
 
     @RequestMapping("/avaliador")
     public String index(Model model) {
@@ -66,5 +75,19 @@ public class AvaliadorController {
     public String delete(@PathVariable("id") Long id) {
         service.delete(id);
         return "redirect:/avaliador";
+    }
+
+    @RequestMapping("/avaliador/{id}/revisoes")
+    public String revisoes(@PathVariable("id") Long id, Model model) {
+        Avaliador avaliador = service.findOne(id);
+        model.addAttribute("revisoesList", revisaoRepository.findByAvaliador(avaliador.getId()));
+        model.addAttribute("avaliador", avaliador);
+        return "avaliador/list-revisoes-avaliado";
+    }
+
+    @RequestMapping("/avaliador/{id}/revisoes/status")
+    public String upRevisoes(@PathVariable Long id, Revisao revisao) {
+        revisaoService.save(revisao);
+        return "redirect:/avaliador/" + id + "/revisoes";
     }
 }

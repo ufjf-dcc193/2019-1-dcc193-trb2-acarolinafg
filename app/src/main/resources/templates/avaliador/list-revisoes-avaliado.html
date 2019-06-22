@@ -7,7 +7,7 @@
         <meta name="description" content="Trabalho 2 - Gestão e avaliação de pesquisas"/>
         <meta name="author" content="Ana Carolina Fidelis Gonçalves"/>
 
-        <title>Trabalho 2 | Avaliador</title>
+        <title>Trabalho 2 | Avaliador - Revisões</title>
 
         <!-- Custom fonts for this template-->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css"/>
@@ -64,38 +64,56 @@
                 <div class="container-fluid">
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active">Avaliador</li>
+                        <li class="breadcrumb-item">
+                            <a th:href="@{/avaliador}">Avaliador</a>
+                        </li>
+                        <li class="breadcrumb-item active">Revisões</li>
                     </ol>
 
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fas fa-user"></i> Avaliador
+                            <i class="fas fa-user"></i> Avaliador -> Lista de Revisões
                         </div>
                         <div class="card-body">
-                            <a class="btn btn-success mb-3" th:href="@{/avaliador/create}"><i class="fas fa-plus"></i> Novo Avaliador</a>
+                            <p>Avaliador: <span th:text="${avaliador.nome}"></span>  <span class="badge badge-warning" th:each="areaConhecimento: ${avaliador.areaConhecimento}"  th:text="${areaConhecimento.nome}"></span></p>
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="tbAvaliador" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="tbAvaliadorRevisoes" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>NOME</th>
-                                            <th>EMAIL</th>
-                                            <th>ÁREA DE CONHECIMENTO</th>
-                                            <th>AÇÕES</th>
+                                            <th>TRABALHO</th>
+                                            <th>NOTA</th>
+                                            <th>STATUS ATUAL</th>
+                                            <th>ALTERAR STATUS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="avaliador: ${avaliador}">
-                                            <td th:text="${avaliador.nome}"></td>
-                                            <td th:text="${avaliador.email}"></td>
+                                        <tr th:each="revisao: ${revisoesList}">
+                                            <td th:text="${revisao.trabalho.titulo}"></td>
+                                            <td th:text="${revisao.nota}"></td>
                                             <td>
-                                                 <span class="badge badge-warning" th:each="areaConhecimento: ${avaliador.areaConhecimento}"  th:text="${areaConhecimento.nome}"></span>
+                                                <span th:if="${revisao.status == 0}"> A fazer</span>
+                                                <span th:if="${revisao.status == 1}"> Avaliado</span>
+                                                <span th:if="${revisao.status == 2}"> Impedido</span>
+                                                <span th:if="${revisao.status == 3}"> Validado</span>
+                                                <span th:if="${revisao.status == 4}"> Invalidado</span>
                                             </td>
-                                            <td class="text-center">
-                                                <div class="btn-group">
-                                                    <a th:href="@{'/avaliador/edit/' + ${avaliador.id}}" class="btn btn-sm btn-primary">Editar</a>
-                                                    <a  th:href="@{'/avaliador/delete/' + ${avaliador.id}}" class="btn btn-sm btn-danger">Excluir</a>
-                                                    <a  th:href="@{'/avaliador/' + ${avaliador.id}} + '/revisoes'" class="btn btn-sm btn-success">Revisões</a>
-                                                </div>
+                                            <td>
+                                                <form class="form-inline" th:action="@{'/avaliador/' + ${avaliador.id} + '/revisoes/status'}" th:object="${revisao}" method="POST">
+                                                    <input type="hidden" name="id" th:value="${revisao.id}"/>
+                                                    <input type="hidden" name="avaliador" th:value="${avaliador.id}"/>
+                                                    <input type="hidden" name="trabalho" th:value="${revisao.trabalho.id}"/>
+                                                    <input type="hidden" name="nota" th:value="${revisao.nota}"/>
+                                                    <input type="hidden" name="descricao" th:value="${revisao.descricao}"/>
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="status" required="">
+                                                            <option value="1">Avaliado</option>
+                                                            <option value="3">Validado</option>
+                                                            <option value="4">Invalidado</option>
+                                                        </select>
+                                                    </div> 
+                                                    &nbsp;&nbsp;
+                                                    <button type="submit" class="btn btn-outline-primary">Alterar</button>
+                                                </form> 
                                             </td>
                                         </tr>
                                     </tbody>
