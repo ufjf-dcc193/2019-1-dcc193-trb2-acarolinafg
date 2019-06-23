@@ -7,7 +7,7 @@
         <meta name="description" content="Trabalho 2 - Gestão e avaliação de pesquisas"/>
         <meta name="author" content="Ana Carolina Fidelis Gonçalves"/>
 
-        <title>Trabalho 2 | Home</title>
+        <title>Trabalho 2 | Logado</title>
 
         <!-- Custom fonts for this template-->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css"/>
@@ -58,10 +58,32 @@
                         <span>Revisão</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login/logout}">
+                        <i class="fas fa-fw fa-eye-slash"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
             </ul>
 
             <div id="content-wrapper">
-
+                <div class="container-fluid">
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">Logado</li>
+                    </ol>
+                    <p>Avaliador(a): <span th:text="${avaliador.nome}"></span></p>
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-th"></i> Áreas de Conhecimento
+                        </div>
+                        <div class="card-body">
+                            <div class="col-12" th:each="areaConhecimento: ${avaliador.areaConhecimento}">
+                                <a class="btn btn-dark mb-3" th:href="@{'/login/trabalhos/area/' + ${areaConhecimento.id}}" role="button">Trabalhos de <span th:text="${areaConhecimento.nome}"></span></a>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Sticky Footer -->
                 <footer class="sticky-footer">

@@ -19,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 
 @Entity
 public class Avaliador implements Serializable {
@@ -30,7 +31,7 @@ public class Avaliador implements Serializable {
     private String email;
     private String senha;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<AreaConhecimento> areaConhecimento;
 
     public Avaliador() {

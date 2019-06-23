@@ -35,16 +35,10 @@ public class RevisaoController {
     private AreaConhecimentoService areaConhecimentoService;
 
     @Autowired
-    private TrabalhoService trabalhoService;
-    
-    @Autowired
     private TrabalhoRepository trabalhoRepository;
     
     @Autowired
     private AvaliadorRepository avaliadorRepository;
-
-    @Autowired
-    private AvaliadorService avaliadorService;
 
     @RequestMapping("/revisao")
     public String index(Model model) {

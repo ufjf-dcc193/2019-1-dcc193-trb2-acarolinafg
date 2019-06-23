@@ -7,7 +7,7 @@
         <meta name="description" content="Trabalho 2 - Gestão e avaliação de pesquisas"/>
         <meta name="author" content="Ana Carolina Fidelis Gonçalves"/>
 
-        <title>Trabalho 2 | Nova Área de Conhecimento</title>
+        <title>Trabalho 2 | Logado</title>
 
         <!-- Custom fonts for this template-->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css"/>
@@ -59,9 +59,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/login}">
-                        <i class="fas fa-fw fa-eye"></i>
-                        <span>Login</span>
+                    <a class="nav-link" th:href="@{/login/logout}">
+                        <i class="fas fa-fw fa-eye-slash"></i>
+                        <span>Sair</span>
                     </a>
                 </li>
             </ul>
@@ -71,29 +71,22 @@
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a th:href="@{/area-conhecimento}">Área de Conhecimento</a>
-                        </li>
-                        <li class="breadcrumb-item active">Criar</li>
+                            <a th:href="@{/login/home}">Logado</a></li>
+                        <li class="breadcrumb-item active">Trabalhos</li>
                     </ol>
-
+                    <p>Avaliador(a): <span th:text="${avaliador.nome}"></span></p>
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fas fa-plus"></i> Nova Área de Conhecimento
+                            <i class="fas fa-biohazard"></i> Trabalhos
                         </div>
-                        <form th:action="@{/area-conhecimento/store}" th:object="${areaConhecimento}" method="post">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="nome">Nome</label>
-                                    <input type="text" class="form-control" th:field="*{nome}" required=""/>
-                                </div>    
-                            </div>
-                            <div class="card-footer">
-                                <a class="btn btn-dark" th:href="@{/area-conhecimento}"><i class="fas fa-chevron-left"></i> Voltar</a>
-                                <button class="btn btn-primary" type="submit">Salvar</button>
-                            </div> 
-                        </form>
+                        <div class="card-body">
+                            <div class="col-12" th:each="trabalho: ${trabalhos}">
+                                <a class="btn btn-dark mb-3" th:href="@{'/login/avaliar/trabalho/' + ${trabalho.id}}" role="button"><span th:text="${trabalho.titulo}"></span></a>
+                            </div>  
+                        </div>
                     </div>
                 </div>
+
                 <!-- Sticky Footer -->
                 <footer class="sticky-footer">
                     <div class="container my-auto">
